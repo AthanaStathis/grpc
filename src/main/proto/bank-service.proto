@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.services";
+
+message BalanceCheckRequest {
+  int32 account_number = 1;
+}
+
+message Balance {
+  int32 amount = 1;
+}
+
+message WithdrawRequest {
+  int32 account_number = 1;
+  int32 amount = 2;
+}
+
+message Banknote {
+  int32 value = 1;
+}
+
+service BankService {
+
+  // Unary
+  rpc getBalance(BalanceCheckRequest) returns (Balance);
+
+  // Server side stream
+  rpc withdraw(WithdrawRequest) returns (stream Banknote);
+}
